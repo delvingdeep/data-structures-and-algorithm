@@ -9,11 +9,11 @@ class LinkedList:
 
     def to_list(self):
         out_list = []
-        current = self.head
+        node = self.head
 
-        while current:
-            out_list.append(current.value)
-            current = current.next
+        while node:
+            out_list.append(node.value)
+            node = node.next
 
         return out_list
 
@@ -37,31 +37,50 @@ class LinkedList:
         return
 
     def search(self, value):
-        current = self.head
+        node = self.head
 
-        while current:
-            if current.value == value:
-                return current
-            current = current.next
+        while node:
+            if node.value == value:
+                return node
+            node = node.next
 
         return None
 
-    # def remove(self, value):
-    #     '''
-    #     Remove first occurence of value
-    #     '''
-    #     current = self.head
-    #
-    #     while current:
-    #         if current.value == value:
-    #             continue
-    #         new_ll.next = Node(current.value)
-    #         current = current.next
-    #         new_ll = new_ll.next
-    #
-    #     return new_ll
+    def remove(self, value):
+        '''
+        Remove first occurence of value
+        '''
+        if self.head is None:
+            return
 
+        if self.head.value == value:
+            self.head = self.head.next
+            return
 
+        node = self.head
+        while node.next:
+            if node.next.value == value:
+                node.next = node.next.next
+                return
+            node = node.next
+
+        raise ValueError('Value not found in the list')
+
+    def pop(self):
+        '''
+        Return the first node's value and remove it from the list
+        '''
+        if self.head is None:
+            return None
+
+        node = self.head
+        self.head = self.head.next
+
+        return node
+
+# # # # # # # # # # # #
+#     Main loop       #
+# # # # # # # # # # # #
 
 # create a linked list
 linked_list = LinkedList()
@@ -94,10 +113,18 @@ while search_node.next:
 
 print('Value {} exits in the linked list at node #{}'.format(value, counter))
 
-# # remove a node and print all the nodes of the new linked list
-# new_list = linked_list.remove(3)
-# print('Nodes of new linked list:')
-# new_node = new_list.head
-# while new_node:
-#     print(new_node.value)
-#     new_node = new_node.next
+# remove a node and print all the nodes of the new linked list
+linked_list.remove(3)
+print('---- Nodes of new linked list after removing value 3 ----')
+new_node = linked_list.head
+while new_node:
+    print(new_node.value)
+    new_node = new_node.next
+
+# pop first node
+linked_list.pop()
+print('---- Linked List after poping first node ----')
+node = linked_list.head
+while node:
+    print(node.value)
+    node = node.next
