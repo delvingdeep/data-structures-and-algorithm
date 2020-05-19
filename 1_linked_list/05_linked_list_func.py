@@ -78,53 +78,103 @@ class LinkedList:
 
         return node
 
+    def size(self):
+        counter = 0
+        node = self.head
+
+        while node:
+            counter += 1
+            node = node.next
+
+        return counter
+
+    def insert(self, value, pos):
+        '''
+        Insert value at pos position in the list.
+        If position is larger than the length of the list,
+        append to the end of the list.
+        '''
+
+        # if list is empty
+        if self.head is None:
+            self.head = Node(value)
+            return
+
+        if pos == 0:
+            self.prepend(value)
+
+        if pos > self.size():
+            self.append(value)
+        else:
+            index = 0
+            node = self.head
+            while node.next and index <= pos:
+                if (pos - 1) == index:
+                    new_node = Node(value)
+                    new_node.next = node.next
+                    node.next = new_node
+                    return
+
+                index += 1
+                node = node.next
+
+
+    def print(self):
+        node = self.head
+        while node:
+            print(node.value)
+            node = node.next
+
+
 # # # # # # # # # # # #
 #     Main loop       #
 # # # # # # # # # # # #
+def main():
+    # create a linked list
+    linked_list = LinkedList()
+    linked_list.append(3)
+    linked_list.prepend(2)
+    linked_list.prepend(1)
+    linked_list.append(4)
+    linked_list.append(5)
+    linked_list.prepend(0)
 
-# create a linked list
-linked_list = LinkedList()
-linked_list.append(3)
-linked_list.prepend(2)
-linked_list.prepend(1)
-linked_list.append(4)
-linked_list.append(5)
-linked_list.prepend(0)
+    # print all the nodes of the linked list
+    print('Nodes of linked list:')
+    linked_list.print()
 
+    # search value
+    value = 3
+    counter = 0
+    search_node = linked_list.head
 
-# print all the nodes of the linked list
-print('Nodes of linked list:')
-list_node = linked_list.head
-while list_node:
-    print(list_node.value)
-    list_node = list_node.next
+    while search_node.next:
+        counter += 1
 
-# search value
-value = 3
-counter = 0
-search_node = linked_list.head
+        if search_node.value == value:
+            break
+        search_node = search_node.next
 
-while search_node.next:
-    counter += 1
+    print('Value {} exits in the linked list at node #{}'.format(value, counter))
 
-    if search_node.value == value:
-        break
-    search_node = search_node.next
+    # remove a node and print all the nodes of the new linked list
+    linked_list.remove(3)
+    print('---- Nodes of new linked list after removing value 3 ----')
+    linked_list.print()
 
-print('Value {} exits in the linked list at node #{}'.format(value, counter))
+    # pop first node
+    popped_node = linked_list.pop()
+    print('---- Linked List after poping first node :', popped_node.value)
+    linked_list.print()
 
-# remove a node and print all the nodes of the new linked list
-linked_list.remove(3)
-print('---- Nodes of new linked list after removing value 3 ----')
-new_node = linked_list.head
-while new_node:
-    print(new_node.value)
-    new_node = new_node.next
+    # size of linked list
+    print('Size of given linked list : ', linked_list.size())
 
-# pop first node
-linked_list.pop()
-print('---- Linked List after poping first node ----')
-node = linked_list.head
-while node:
-    print(node.value)
-    node = node.next
+    # insert node
+    linked_list.insert(3, )
+    # linked_list.insert(6, 8)
+    print('List after insertion:')
+    linked_list.print()
+
+if __name__ == '__main__':
+    main()
