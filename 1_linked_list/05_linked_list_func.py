@@ -3,11 +3,16 @@ class Node:
         self.value = value
         self.next = None
 
+
 class LinkedList:
     def __init__(self):
         self.head = None
 
+
     def to_list(self):
+        """
+        Convert the linked list to normal list
+        """
         out_list = []
         node = self.head
 
@@ -17,39 +22,55 @@ class LinkedList:
 
         return out_list
 
-    def prepend(self, value):
-        previous_head = self.head
-        self.head = Node(value)
-        self.head.next = previous_head
-        return
 
-    def append(self, value):
+    def prepend(self, value):
+        """
+        Add value to the start of the list
+        """
         if self.head is None:
             self.head = Node(value)
 
         else:
             node = self.head
-            while node:
-                node = node.next
-                if node.next is None:
-                    node.next = Node(value)
-                    break
+            self.head = Node(value)
+            self.head.next = node
         return
 
-    def search(self, value):
-        node = self.head
 
+    def append(self, value):
+        """
+        Add value to the end of the list
+        """
+        if self.head is None:
+            self.head = Node(value)
+
+        else:
+            node = self.head
+            while node.next:
+                node = node.next
+            node.next = Node(value)
+        return
+
+
+    def search(self, value):
+        """
+        Search first occurence of the given value
+        """
+        if self.head is None:
+            return None
+
+        node = self.head
         while node:
             if node.value == value:
                 return node
             node = node.next
+        raise ValueError('Value not found')
 
-        return None
 
     def remove(self, value):
-        '''
-        Remove first occurence of value
-        '''
+        """
+        Remove first occurence of given value
+        """
         if self.head is None:
             return
 
@@ -66,15 +87,16 @@ class LinkedList:
 
         raise ValueError('Value not found in the list')
 
+
     def pop(self):
-        '''
+        """
         Return the first node's value and remove it from the list
-        '''
+        """
         if self.head is None:
             return None
 
         node = self.head
-        self.head = self.head.next
+        self.head = node.next
 
         return node
 
@@ -89,11 +111,11 @@ class LinkedList:
         return counter
 
     def insert(self, value, pos):
-        '''
+        """
         Insert value at pos position in the list.
         If position is larger than the length of the list,
         append to the end of the list.
-        '''
+        """
 
         # if list is empty
         if self.head is None:
@@ -119,7 +141,10 @@ class LinkedList:
                 node = node.next
 
 
-    def print(self):
+    def print_list(self):
+        """
+        Print value of all the nodes of the linked list
+        """
         node = self.head
         while node:
             print(node.value)
@@ -129,7 +154,7 @@ class LinkedList:
 # # # # # # # # # # # #
 #     Main loop       #
 # # # # # # # # # # # #
-def main():
+if __name__ == '__main__':
     # create a linked list
     linked_list = LinkedList()
     linked_list.append(3)
@@ -141,7 +166,7 @@ def main():
 
     # print all the nodes of the linked list
     print('Nodes of linked list:')
-    linked_list.print()
+    linked_list.print_list()
 
     # search value
     value = 3
@@ -160,21 +185,18 @@ def main():
     # remove a node and print all the nodes of the new linked list
     linked_list.remove(3)
     print('---- Nodes of new linked list after removing value 3 ----')
-    linked_list.print()
+    linked_list.print_list()
 
     # pop first node
     popped_node = linked_list.pop()
-    print('---- Linked List after poping first node :', popped_node.value)
-    linked_list.print()
+    print('---- Linked List after poping first node : {}'.format(popped_node.value))
+    linked_list.print_list()
 
     # size of linked list
-    print('Size of given linked list : ', linked_list.size())
+    print('Size of given linked list : {}'.format(linked_list.size()))
 
     # insert node
-    linked_list.insert(3, )
+    #linked_list.insert(3, )
     # linked_list.insert(6, 8)
     print('List after insertion:')
-    linked_list.print()
-
-if __name__ == '__main__':
-    main()
+    linked_list.print_list()
