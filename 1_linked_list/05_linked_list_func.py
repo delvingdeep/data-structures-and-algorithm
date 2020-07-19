@@ -100,15 +100,19 @@ class LinkedList:
 
         return node
 
+
     def size(self):
-        counter = 0
+        """
+        Return the size or length of the linked list.
+        """
+        counter = 1
         node = self.head
 
-        while node:
+        while node.next:
             counter += 1
             node = node.next
-
         return counter
+
 
     def insert(self, value, pos):
         """
@@ -117,28 +121,32 @@ class LinkedList:
         append to the end of the list.
         """
 
-        # if list is empty
+        # if linked  list is empty
         if self.head is None:
             self.head = Node(value)
             return
 
+        # if position is Zero, that is head
         if pos == 0:
-            self.prepend(value)
-
-        if pos > self.size():
-            self.append(value)
-        else:
-            index = 0
             node = self.head
-            while node.next and index <= pos:
-                if (pos - 1) == index:
-                    new_node = Node(value)
-                    new_node.next = node.next
-                    node.next = new_node
-                    return
+            self.head = Node(value)
+            self.head.next = node
+            return
 
-                index += 1
-                node = node.next
+        # else check for the index till the position
+        index = 0
+        node = self.head
+        while node.next:
+            if index == (pos-1):
+                next_node = node.next
+                node.next = Node(value)
+                node.next.next = next_node
+                return
+            node = node.next
+            index += 1
+
+        # if pos is greater than size of the list, append at the end
+        node.next = Node(value)
 
 
     def print_list(self):
@@ -155,6 +163,7 @@ class LinkedList:
 #     Main loop       #
 # # # # # # # # # # # #
 if __name__ == '__main__':
+
     # create a linked list
     linked_list = LinkedList()
     linked_list.append(3)
@@ -196,7 +205,11 @@ if __name__ == '__main__':
     print('Size of given linked list : {}'.format(linked_list.size()))
 
     # insert node
-    #linked_list.insert(3, )
-    # linked_list.insert(6, 8)
-    print('List after insertion:')
+    linked_list.insert(3, 0)
+    linked_list.insert(3, 3)
+    linked_list.insert(6, 8)
+    print('List after three insertion: ')
     linked_list.print_list()
+
+    # size of linked list
+    print('Size of given linked list : {}'.format(linked_list.size()))
