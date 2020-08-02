@@ -84,6 +84,3 @@ if __name__ == '__main__':
     str1 = 'ACTTGACCGGG'
     str2 = 'GATCCGGTACA'
     print('Hamming distance between strings {} and {} : {}'.format(str1, str2, hamming_distance(str1, str2)))
-
-
-
