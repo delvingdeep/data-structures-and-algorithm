@@ -13,12 +13,11 @@ class DoublyLinkedList:
         if self.head is None:
             self.head = DoubleNode(value)
             self.tail = self.head
-            return
 
-        self.tail.next = DoubleNode(value)
-        self.tail.next.prev = self.tail
-        self.tail = self.tail.next
-        return
+        else:
+            self.tail.next = DoubleNode(value)
+            self.tail.next.prev = self.tail
+            self.tail = self.tail.next
 
 # create a doubly linked list
 linked_list = DoublyLinkedList()

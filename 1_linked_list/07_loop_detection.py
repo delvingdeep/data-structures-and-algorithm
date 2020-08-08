@@ -80,7 +80,5 @@ def main():
     print('Is loop circular? : ', linked_list.isCircular())
 
 
-
-
 if __name__ == '__main__':
     main()

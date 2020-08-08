@@ -49,6 +49,21 @@ def reverse(linked_list):
     return new_list
 
 
+def reverse_2(linked_list):
+    """
+    Second approach to reverse a linked list
+    """
+    node_list = []
+    for node in linked_list:
+        node_list.append(node)
+
+    new_linked_list = LinkedList()
+    for item in node_list[::-1]:
+        new_linked_list.append(item)
+
+    return new_linked_list
+
+
 def main():
     linked_list = LinkedList()
 
@@ -63,6 +78,11 @@ def main():
     rev_list = reverse(linked_list)
     print('Reverse List: ')
     print(repr(rev_list))
+
+    rev_list2 = reverse_2(linked_list)
+    print('Second approach: ')
+    print(repr(rev_list2))
+
 
 if __name__ == '__main__':
     main()
