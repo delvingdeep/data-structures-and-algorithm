@@ -108,5 +108,10 @@ if __name__ == '__main__':
 
     print('--- Applying even after odd ----')
 
+    node = linked_list.even_after_odd()
 
-    
+    list_sorted = []
+    while node:
+        list_sorted.append(node.value)
+        node = node.next
+    print(list_sorted)
